@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiaomi Device Services - Professional Flashing and Unlocking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mi-orange: #ff6700;
+            --mi-light-orange: #ff8a39;
+            --mi-dark-gray: #1a1a1a;
+            --mi-light-gray: #333333;
+            --mi-text: #e0e0e0;
+            --mi-card-bg: #252525;
+            --mi-footer-bg: #121212;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: var(--mi-text);
+        }
+        
+        header {
+            background-color: var(--mi-dark-gray);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--mi-orange);
+        }
+        
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--mi-text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--mi-orange);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--mi-orange) 0%, var(--mi-light-orange) 100%);
+            color: white;
+            padding: 150px 20px 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--mi-dark-gray);
+            color: var(--mi-orange);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--mi-dark-gray);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .services {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--mi-text);
+        }
+        
+        .section-title span {
+            color: var(--mi-orange);
+        }
+        
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--mi-card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: var(--mi-text);
+        }
+        
+        .service-content p {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            color: var(--mi-orange);
+            font-weight: 700;
+        }
+        
+        .testimonials {
+            background-color: var(--mi-light-gray);
+            padding: 80px 20px;
+        }
+        
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-cards {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+        
+        .testimonial-cards::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-card {
+            background-color: var(--mi-card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            min-width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        
+        .customer-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .customer-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .customer-name {
+            font-weight: 600;
+            color: var(--mi-text);
+        }
+        
+        .about {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--mi-text);
+        }
+        
+        .about-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            background-color: var(--mi-footer-bg);
+            color: var(--mi-text);
+            padding: 60px 20px 30px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--mi-orange);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--mi-orange);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow: auto;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background-color: var(--mi-card-bg);
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.5s;
+        }
+        
+        .modal-header {
+            background-color: var(--mi-orange);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--mi-text);
+        }
+        
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            font-size: 1rem;
+            background-color: #333;
+            color: var(--mi-text);
+        }
+        
+        form button {
+            background-color: var(--mi-orange);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        form button:hover {
+            background-color: var(--mi-light-orange);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--mi-dark-gray);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                z-index: 99;
+                padding: 20px 0;
+                border-top: 1px solid #444;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 15px 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .modal-content {
+                width: 90%;
+                margin: 20px auto;
+            }
+            
+            .modal-body {
+                padding: 20px 15px;
+            }
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--mi-text);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-toggle i {
+            font-size: 24px;
+        }
+    </style>
+    <!-- Add FontAwesome for hamburger menu icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <span>Xiaomi Services</span>
+            </div>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mobile-menu">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Professional Xiaomi Device Services</h1>
+        <p>Expert EDL flashing, UBL unlocking, and account removal services for all Xiaomi, Redmi and POCO devices</p>
+        <a href="#services" class="btn">Explore Services</a>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">Our <span>Services</span></h2>
+        <div class="service-cards">
+            <div class="service-card" data-service="edl">
+                <img src="https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/02/xiaomi-brick.jpg?q=50&fit=crop&w=1100&h=618&dpr=1.5" alt="EDL Flashing Service">
+                <div class="service-content">
+                    <h3>EDL Flashing Service</h3>
+                    <p>Complete recovery solution for bricked Xiaomi devices. We can restore your device to working condition.</p>
+                    <div class="price">€10-25</div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="ubl">
+                <img src="https://imobie-resource.com/en/support/img/phone-connected.png" alt="UBL Unlocking">
+                <div class="service-content">
+                    <h3>UBL Unlocking (Global)</h3>
+                    <p>Unlock your bootloader without waiting periods. Works on all Xiaomi, Redmi and POCO devices.</p>
+                    <div class="price">€60</div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="account">
+                <img src="https://www.cellulare-magazine.it/wp-content/uploads/2022/01/xiaomi-spia.jpeg" alt="Account Removal">
+                <div class="service-content">
+                    <h3>Mi Account Removal</h3>
+                    <p>Complete Mi Account removal service. Bypass FRP and account locks on your device.</p>
+                    <div class="price">€15</div>
+                </div>
+            </div>
+        </div>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>Why Choose Our Services?</h2>
+            <p>With over 5 years of experience in Xiaomi device repair and flashing, we provide professional services that get your device back to working condition quickly and effectively.</p>
+            <p>Our team specializes in EDL flashing for bricked devices, bootloader unlocking without waiting periods, and Mi Account removal services for all Xiaomi, Redmi and POCO devices.</p>
+            <p>We pride ourselves on fast turnaround times, secure payment methods, and excellent customer support throughout the process.</p>
+        </div>
+        <div class="about-image">
+            <img src="https://static1.xdaimages.com/wordpress/wp-content/uploads/2019/05/Xiaomi-Logo-1.png?q=50&fit=crop&w=1100&h=618&dpr=1.5" alt="Xiaomi Device Repair">
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Xiaomi Services</h3>
+                <ul>
+                    <li><a href="#services">EDL Flashing</a></li>
+                    <li><a href="#services">UBL Unlocking</a></li>
+                    <li><a href="#services">Account Removal</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contact Information</h3>
+                <ul>
+                    <li>Telegram: @xinimmi</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Xiaomi Device Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Service Modals -->
+    <div id="edlModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>EDL Flashing Service</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edlForm">
+                    <div class="form-group">
+                        <label for="edl-device">Device Model</label>
+                        <input type="text" id="edl-device" name="device" required placeholder="e.g. Redmi Note 10 Pro">
+                    </div>
+                    <div class="form-group">
+                        <label for="edl-brick">How did you brick it?</label>
+                        <textarea id="edl-brick" name="issue" rows="3" required placeholder="Please describe what happened to your device..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edl-payment">Payment Method</label>
+                        <select id="edl-payment" name="payment" required>
+                            <option value="">Select payment method</option>
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="ethereum">Ethereum</option>
+                            <option value="solana">Solana</option>
+                            <option value="usdt">USDT</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="paysafe">Paysafe Card</option>
+                            <option value="giftcards">Gift Cards</option>
+                            <option value="csskins">CS Skins</option>
+                            <option value="gameaccounts">Game Accounts</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edl-email">Email Address</label>
+                        <input type="email" id="edl-email" name="email" required placeholder="Your email address">
+                    </div>
+                    <button type="submit">Chat with Support</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="ublModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>UBL Unlocking Service</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="ublForm">
+                    <div class="form-group">
+                        <label for="ubl-device">Device Model</label>
+                        <input type="text" id="ubl-device" name="device" required placeholder="e.g. POCO F4 GT">
+                    </div>
+                    <div class="form-group">
+                        <label for="ubl-region">Region</label>
+                        <select id="ubl-region" name="region" required>
+                            <option value="">Select region</option>
+                            <option value="global">Global</option>
+                            <option value="cn">China (CN)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ubl-payment">Payment Method</label>
+                        <select id="ubl-payment" name="payment" required>
+                            <option value="">Select payment method</option>
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="ethereum">Ethereum</option>
+                            <option value="solana">Solana</option>
+                            <option value="usdt">USDT</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="paysafe">Paysafe Card</option>
+                            <option value="giftcards">Gift Cards</option>
+                            <option value="csskins">CS Skins</option>
+                            <option value="gameaccounts">Game Accounts</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ubl-email">Email Address</label>
+                        <input type="email" id="ubl-email" name="email" required placeholder="Your email address">
+                    </div>
+                    <button type="submit">Chat with Support</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Account Removal Service</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="accountForm">
+                    <div class="form-group">
+                        <label for="account-device">Device Model</label>
+                        <input type="text" id="account-device" name="device" required placeholder="e.g. Mi 11 Ultra">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-payment">Payment Method</label>
+                        <select id="account-payment" name="payment" required>
+                            <option value="">Select payment method</option>
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="ethereum">Ethereum</option>
+                            <option value="solana">Solana</option>
+                            <option value="usdt">USDT</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="paysafe">Paysafe Card</option>
+                            <option value="giftcards">Gift Cards</option>
+                            <option value="csskins">CS Skins</option>
+                            <option value="gameaccounts">Game Accounts</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-email">Email Address</label>
+                        <input type="email" id="account-email" name="email" required placeholder="Your email address">
+                    </div>
+                    <button type="submit">Chat with Support</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ensure all code runs after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('#mobile-menu');
+            
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('show');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('show');
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Modal functionality - FIXED
+            const serviceCards = document.querySelectorAll('.service-card');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.close-modal');
+            
+            // Add click event listeners to each service card
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const service = this.getAttribute('data-service');
+                    const modal = document.getElementById(`${service}Modal`);
+                    if (modal) {
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        console.error(`Modal with ID ${service}Modal not found`);
+                    }
+                });
+            });
+            
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            window.addEventListener('click', (e) => {
+                modals.forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // Form submission
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Get service type from form ID
+                    const service = form.id.replace('Form', '');
+                    
+                    // Create message text for Telegram
+                    let message = '';
+                    
+                    if (service === 'edl') {
+                        const device = document.getElementById('edl-device').value;
+                        const issue = document.getElementById('edl-brick').value;
+                        const payment = document.getElementById('edl-payment').value;
+                        const email = document.getElementById('edl-email').value;
+                        
+                        message = `Hello! I need EDL Flashing Service for my ${device}.\n\n`;
+                        message += `Issue description: ${issue}\n`;
+                        message += `Payment method: ${payment}\n`;
+                        message += `Email: ${email}`;
+                    } else if (service === 'ubl') {
+                        const device = document.getElementById('ubl-device').value;
+                        const region = document.getElementById('ubl-region').value;
+                        const payment = document.getElementById('ubl-payment').value;
+                        const email = document.getElementById('ubl-email').value;
+                        
+                        message = `Hello! I need UBL Unlocking Service for my ${device}.\n\n`;
+                        message += `Region: ${region}\n`;
+                        message += `Payment method: ${payment}\n`;
+                        message += `Email: ${email}`;
+                    } else if (service === 'account') {
+                        const device = document.getElementById('account-device').value;
+                        const payment = document.getElementById('account-payment').value;
+                        const email = document.getElementById('account-email').value;
+                        
+                        message = `Hello! I need Account Removal Service for my ${device}.\n\n`;
+                        message += `Payment method: ${payment}\n`;
+                        message += `Email: ${email}`;
+                    }
+                    
+                    // Redirect to Telegram with pre-filled text
+                    window.location.href = `https://t.me/xinimmi?text=${encodeURIComponent(message)}`;
+                });
+            });
+
+            // Testimonial slider animation
+            const testimonials = document.querySelector('.testimonial-cards');
+            if (testimonials) {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                testimonials.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    testimonials.style.cursor = 'grabbing';
+                    startX = e.pageX - testimonials.offsetLeft;
+                    scrollLeft = testimonials.scrollLeft;
+                });
+
+                testimonials.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    testimonials.style.cursor = 'grab';
+                });
+
+                testimonials.addEventListener('mouseup', () => {
+                    isDown = false;
+                    testimonials.style.cursor = 'grab';
+                });
+
+                testimonials.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - testimonials.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    testimonials.scrollLeft = scrollLeft - walk;
+                });
+
+                // Auto scroll testimonials
+                let scrollInterval;
+                
+                function startAutoScroll() {
+                    scrollInterval = setInterval(() => {
+                        testimonials.scrollLeft += 2;
+                        
+                        // Reset scroll position when reaching the end
+                        if (testimonials.scrollLeft >= testimonials.scrollWidth - testimonials.clientWidth) {
+                            testimonials.scrollLeft = 0;
+                        }
+                    }, 30);
+                }
+                
+                function stopAutoScroll() {
+                    clearInterval(scrollInterval);
+                }
+                
+                testimonials.addEventListener('mouseenter', stopAutoScroll);
+                testimonials.addEventListener('mouseleave', startAutoScroll);
+                
+                // Start auto-scrolling when page loads
+                startAutoScroll();
+            }
+
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.service-card, .section-title, .about-content, .about-image');
+                
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    } else {
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(20px)';
+                    }
+                });
+            };
+            
+            // Set initial state for scroll animations
+            const elements = document.querySelectorAll('.service-card, .section-title, .about-content, .about-image');
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.6s ease-out';
+            });
+            
+            // Run once on load
+            animateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
+
+            // Konami Code Easter Egg
+            const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let konamiIndex = 0;
+
+            document.addEventListener('keydown', function(e) {
+                // Convert key to lowercase for case-insensitive comparison
+                const key = e.key;
+                
+                // Check if the key matches the current expected key in the sequence
+                if (key === konamiCode[konamiIndex]) {
+                    konamiIndex++;
+                    
+                    // If the full sequence has been entered correctly
+                    if (konamiIndex === konamiCode.length) {
+                        activateEasterEgg();
+                        konamiIndex = 0; // Reset the index
+                    }
+                } else {
+                    konamiIndex = 0; // Reset if wrong key pressed
+                }
+            });
+
+            function activateEasterEgg() {
+                // Create a floating discount code element
+                const easterEgg = document.createElement('div');
+                easterEgg.style.position = 'fixed';
+                easterEgg.style.top = '50%';
+                easterEgg.style.left = '50%';
+                easterEgg.style.transform = 'translate(-50%, -50%)';
+                easterEgg.style.backgroundColor = 'var(--mi-orange)';
+                easterEgg.style.color = 'white';
+                easterEgg.style.padding = '20px';
+                easterEgg.style.borderRadius = '10px';
+                easterEgg.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+                easterEgg.style.zIndex = '2000';
+                easterEgg.style.textAlign = 'center';
+                easterEgg.style.animation = 'fadeInUp 0.5s ease-out';
+                
+                // Add discount information
+                easterEgg.innerHTML = `
+                    <h3 style="margin-bottom: 10px; font-size: 1.5rem;">Secret Discount Found!</h3>
+                    <p style="margin-bottom: 15px;">You've discovered the hidden code. Use this for a special discount:</p>
+                    <div style="background: #333; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 1.2rem; margin-bottom: 15px;">XIAOMI-HACK-2025</div>
+                    <p style="font-size: 0.9rem;">Show this to support for 15% off any service</p>
+                    <button id="closeEasterEgg" style="background: white; color: var(--mi-orange); border: none; padding: 8px 15px; border-radius: 20px; margin-top: 10px; cursor: pointer;">Close</button>
+                `;
+                
+                document.body.appendChild(easterEgg);
+                
+                // Add event listener to close button
+                document.getElementById('closeEasterEgg').addEventListener('click', function() {
+                    document.body.removeChild(easterEgg);
+                });
+                
+                // Auto-remove after 10 seconds
+                setTimeout(() => {
+                    if (document.body.contains(easterEgg)) {
+                        document.body.removeChild(easterEgg);
+                    }
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>
