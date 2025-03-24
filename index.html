@@ -163,6 +163,13 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover img {
+            transform: scale(1.05);
         }
         
         .service-content {
@@ -559,6 +566,15 @@
                     <div class="price">€15</div>
                 </div>
             </div>
+            
+            <div class="service-card" data-service="keyboxes">
+                <img src="https://www.91-cdn.com/hub/wp-content/uploads/2022/11/xiaomi-certificate-verification.jpg" alt="Keyboxes 4certification">
+                <div class="service-content">
+                    <h3>Keyboxes 4certification</h3>
+                    <p>Professional keyboxes certification service for your Xiaomi device. Enhance security and authentication capabilities.</p>
+                    <div class="price">€20</div>
+                </div>
+            </div>
         </div>
 
     <section id="about" class="about">
@@ -734,6 +750,44 @@
         </div>
     </div>
 
+    <div id="keyboxesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Keyboxes 4certification Service</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="keyboxesForm">
+                    <div class="form-group">
+                        <label for="keyboxes-device">Device Model</label>
+                        <input type="text" id="keyboxes-device" name="device" required placeholder="e.g. Redmi Note 12 Pro">
+                    </div>
+                    <div class="form-group">
+                        <label for="keyboxes-payment">Payment Method</label>
+                        <select id="keyboxes-payment" name="payment" required>
+                            <option value="">Select payment method</option>
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="ethereum">Ethereum</option>
+                            <option value="solana">Solana</option>
+                            <option value="usdt">USDT</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="paysafe">Paysafe Card</option>
+                            <option value="giftcards">Gift Cards</option>
+                            <option value="csskins">CS Skins</option>
+                            <option value="gameaccounts">Game Accounts</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyboxes-email">Email Address</label>
+                        <input type="email" id="keyboxes-email" name="email" required placeholder="Your email address">
+                    </div>
+                    <button type="submit">Chat with Support</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Ensure all code runs after DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -835,6 +889,14 @@
                         const email = document.getElementById('account-email').value;
                         
                         message = `Hello! I need Account Removal Service for my ${device}.\n\n`;
+                        message += `Payment method: ${payment}\n`;
+                        message += `Email: ${email}`;
+                    } else if (service === 'keyboxes') {
+                        const device = document.getElementById('keyboxes-device').value;
+                        const payment = document.getElementById('keyboxes-payment').value;
+                        const email = document.getElementById('keyboxes-email').value;
+                        
+                        message = `Hello! I need Keyboxes 4certification Service for my ${device}.\n\n`;
                         message += `Payment method: ${payment}\n`;
                         message += `Email: ${email}`;
                     }
